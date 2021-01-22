@@ -130,7 +130,7 @@ session_start();
 						<li class="has-children">
 							<a href="#0" title="">Categories</a>
 							<ul class="sub-menu">
-							<li><a href="category.php?category=1">Sports!</a></li>
+							<li><a href="category.php?category=1">Sports</a></li>
 							<li><a href="category.php?category=2">Business</a></li>
 							<li><a href="category.php?category=3">Finance</a></li>
 							<li><a href="category.php?category=4">Entertainment</a></li>
@@ -153,7 +153,7 @@ session_start();
 						if(ISSET($_SESSION['username'])){
 							?>
 							<li class="has-children">
-							<a href="#0" title="">My Account</a>
+							<a href="#0" title="">My Accounttt</a>
 							<ul class="sub-menu">
 							<li><a class ="editpass-button" data-toggle="modal" data-target="#editpassModal" href="http://www.google.ca">Change Password</a></li>
 							<li><a class ="edituser-button" data-toggle="modal" data-target="#edituserModal" href="http://www.google.ca">Change Username</a></li>

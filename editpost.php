@@ -23,7 +23,7 @@ if(ISSET($_POST['submitButton'])){
 		$pubdate = $_POST['pubdate'];
 		$cat = $_POST['category'];
 		$picture = $_FILES['picture']['name'];
-		$uploaddir = 'images-folder';
+		$uploaddir = 'images-folder/';
         $uploadfile = $uploaddir . basename($_FILES['picture']['name']);
         move_uploaded_file($_FILES['picture']['tmp_name'], $uploadfile);
 		$query3 = "

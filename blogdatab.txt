@@ -1,0 +1,225 @@
+-- phpMyAdmin SQL Dump
+-- version 4.8.3
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Mar 25, 2019 at 07:37 PM
+-- Server version: 10.1.35-MariaDB
+-- PHP Version: 7.2.9
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `blog`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `articles`
+--
+
+CREATE TABLE `articles` (
+  `articles` int(11) NOT NULL,
+  `title` varchar(150) NOT NULL,
+  `content` varchar(2000) NOT NULL,
+  `comments` int(11) NOT NULL,
+  `category` int(11) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `likes` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `articles`
+--
+
+INSERT INTO `articles` (`articles`, `title`, `content`, `comments`, `category`, `date`, `likes`) VALUES
+(1, 'My article', 'Hey guys, dis my article', 1, 1, '2019-03-25 18:09:53', 17),
+(2, 'bro, this article is shweet', 'guys, my article is bomb', 1, 2, '2019-03-25 18:11:27', 6),
+(3, 'Favs article', 'best article out', 1, 2, '2019-03-25 18:11:27', 67);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `category`
+--
+
+CREATE TABLE `category` (
+  `category_id` int(11) NOT NULL,
+  `category` varchar(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`category_id`, `category`) VALUES
+(1, 'Sports'),
+(2, 'Business');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comments`
+--
+
+CREATE TABLE `comments` (
+  `comments_id` int(11) NOT NULL,
+  `author` varchar(150) NOT NULL,
+  `content` varchar(2000) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`comments_id`, `author`, `content`, `date`) VALUES
+(1, 'Michael', 'Great article bro', '2019-03-25 17:58:16');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `privs`
+--
+
+CREATE TABLE `privs` (
+  `privs_id` int(11) NOT NULL,
+  `privs` varchar(33) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `privs`
+--
+
+INSERT INTO `privs` (`privs_id`, `privs`) VALUES
+(1, 'base'),
+(2, 'author'),
+(3, 'manager'),
+(4, 'admin');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `user_id` int(11) NOT NULL,
+  `fname` varchar(33) NOT NULL,
+  `sname` varchar(33) NOT NULL,
+  `username` varchar(33) NOT NULL,
+  `password` varchar(500) NOT NULL,
+  `dob` date NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `privs` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`user_id`, `fname`, `sname`, `username`, `password`, `dob`, `email`, `privs`) VALUES
+(2, 'Tim', 'Squire', 'Timsquire', '$2y$10$lNkMdWOVniHITtot5wnCIexHWg5LcZ5H9iExmCR0uf9Tg9eczIC5O', '2001-05-02', 'timothysquire101@gmail.com', 4);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `articles`
+--
+ALTER TABLE `articles`
+  ADD PRIMARY KEY (`articles`),
+  ADD KEY `category` (`category`),
+  ADD KEY `comments` (`comments`);
+
+--
+-- Indexes for table `category`
+--
+ALTER TABLE `category`
+  ADD PRIMARY KEY (`category_id`);
+
+--
+-- Indexes for table `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`comments_id`);
+
+--
+-- Indexes for table `privs`
+--
+ALTER TABLE `privs`
+  ADD PRIMARY KEY (`privs_id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`user_id`),
+  ADD KEY `privs` (`privs`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `articles`
+--
+ALTER TABLE `articles`
+  MODIFY `articles` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `category`
+--
+ALTER TABLE `category`
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `comments_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `privs`
+--
+ALTER TABLE `privs`
+  MODIFY `privs_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `articles`
+--
+ALTER TABLE `articles`
+  ADD CONSTRAINT `articles_ibfk_1` FOREIGN KEY (`comments`) REFERENCES `comments` (`comments_id`),
+  ADD CONSTRAINT `articles_ibfk_2` FOREIGN KEY (`category`) REFERENCES `category` (`category_id`);
+
+--
+-- Constraints for table `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`privs`) REFERENCES `privs` (`privs_id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

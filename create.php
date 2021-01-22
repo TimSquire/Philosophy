@@ -34,7 +34,7 @@ if(!ISSET($_SESSION['privs'])){
 							$result3 = mysqli_query($connect, $query3) or die('No connecto bro');
 							$articlenum = "SELECT `article_id` FROM `articles`
 										   ORDER BY `article_id` DESC";
-							$result2 = mysqli_query($conn, $articlenum) or die('No connecto');
+							$result2 = mysqli_query($connect, $articlenum) or die('No connecto');
 							$num = mysqli_fetch_array($result2);
 							$zero = $num[0];
 							foreach($_POST['category'] as $cat){

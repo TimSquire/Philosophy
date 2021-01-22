@@ -27,6 +27,7 @@ if(!ISSET($_SESSION['privs'])){
 							$title = $_POST['title'];
 							$cat = $_POST['category'];
 							$picture = $_FILES['picture']['name'];
+							imagejpeg($picture, NULL, 50);
 							$uploaddir = 'images-folder/';
 							$uploadfile = $uploaddir . basename($_FILES['picture']['name']);
 							move_uploaded_file($_FILES['picture']['tmp_name'], $uploadfile);

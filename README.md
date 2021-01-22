@@ -1,9 +1,3 @@
-CKEditor 5 classic editor build v11.2.0
-=======================================
+Philosophy was a school project I got 100% on that I decided to buy a domain for. All of the login, sign-up, modal, menus/links and admin funstionality was created by myself over the span of about a month. I ocassionally make subtle changes throughout the school year, however I have plans to add some interesting features in the near future.
 
-In order to start using CKEditor 5 Builds, configure or customize them, please visit http://docs.ckeditor.com/ckeditor5/latest/builds/index.html
-
-## License
-
-Licensed under the terms of [GNU General Public License Version 2 or later](http://www.gnu.org/licenses/gpl.html).
-For full details about the license, please check the LICENSE.md file.
+Philosophy allows anyone to log into the website and look at post previews. However, to view entire posts users will be prompted to login. After logging in/creating an account, users can opt to become an author which allows them to create posts. Otherwise, users can simply view all posts either in a main feed or by catergory and through a search by keyword.

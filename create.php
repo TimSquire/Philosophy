@@ -256,7 +256,7 @@ if(!ISSET($_SESSION['privs'])){
                                 </div>
 								<div class="drop-zone">
 									<span class="drop-zone__prompt">Drop image here or click to upload</span>
-									<input type="file" class="drop-zone__input" display="none" name="picture" id="picture">'>
+									<input type="file" class="drop-zone__input" display="none" name="picture" id="picture">
 								</div>
 								<script src="main.js"></script>
 								<script src="./src/main.js"></script>
@@ -391,10 +391,6 @@ color: #ffffff;
 background: rgba(0, 0, 0, 0.75);
 font-size: 14px;
 text-align: center;
-}
-
-p2{
-	color: red;
 }
 p3{
 	color: #FFFFFF;

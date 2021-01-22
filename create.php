@@ -43,17 +43,16 @@ if(!ISSET($_SESSION['privs'])){
 							}
 							header('location: index.php');
 						} else {
-							$error = 'Please answer all the fields!';
-
+							echo "<script> alert('Please answer all the fields!');window.location='create.php' </script>";
 						}
 					} else {
-						$error = 'Please select a category';
+						echo "<script> alert('Please select at least one category');window.location='create.php' </script>";
 					}
 				} else {
-					$error = 'Please enter the picture URL';
+					echo "<script> alert('Please upload a photo');window.location='create.php' </script>";
 				}
 			} else {
-				$error = 'Please answer all the fields';
+				echo "<script> alert('Please enter a title for your post');window.location='create.php' </script>";
 			}
 		}
 ?>
@@ -322,6 +321,7 @@ p2{
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
+	<script src="likejs.js"></script>
 	<?php
 require_once('modals.php');
 ?>

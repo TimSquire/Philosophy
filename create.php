@@ -254,9 +254,12 @@ if(!ISSET($_SESSION['privs'])){
 							<div class="form-field">
                                         <input name="title" type="text" id="tile" class="full-width" placeholder="Enter the title of your post here..." value="" autocomplete = 'off'>
                                 </div>
-								<div class="form-field">
-                                        <input name="picture" type="text" id="picture" class="full-width" placeholder="Enter the URL of a picture here..." value="" autocomplete = 'off'>
-                                </div>
+								<div class="drop-zone">
+									<span class="drop-zone__prompt">Drop image here or click to upload</span>
+									<input type="file" class="drop-zone__input" display="none" name="picture" id="picture">'>
+								</div>
+								<script src="main.js"></script>
+								<script src="./src/main.js"></script>
 								</br>
 								<textarea cols="80" id="editor1" name="editor1" rows="10" data-sample-short></textarea>
 								  <script>

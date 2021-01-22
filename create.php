@@ -23,29 +23,24 @@ if(!ISSET($_SESSION['privs'])){
 						$pic = $_POST['picture'];
 						$user = $_SESSION['username'];
 						if(!empty($editor_data) && !empty($title)){
-							$conn = mysqli_connect('localhost', 'u212525129_TimSquire', '1164Life!', 'u212525129_blog') or die('Bruh?');
-							$image_link = $pic;//Direct link to image
-                            $split_image = pathinfo($image_link);
-                            $ch = curl_init();
-                            curl_setopt($ch, CURLOPT_URL , $image_link);
-                            curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.13 (KHTML, like Gecko) Chrome/0.A.B.C Safari/525.13");
-                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                            $response= curl_exec ($ch);
-                            curl_close($ch);
-                            $file_name = "images-folder/".$split_image['filename'].".".$split_image['extension'];
-                            $file = fopen($file_name , 'w') or die("X_x");
-                            fwrite($file, $response);
-                            fclose($file);
-							$query = "INSERT INTO `articles` (`article_id`, `title`, `content`,`date`, `likes`, `picture`, `author`, `show`) VALUES (NULL, '$title', '$editor_data', CURRENT_TIMESTAMP, '0', '$file_name', '$user', 'yes')";
-							$result = mysqli_query($conn, $query) or die('No connecto');
-							$articlenum = "SELECT `article_id` FROM `articles`
-										   ORDER BY `article_id` DESC";
-							$result2 = mysqli_query($conn, $articlenum) or die('No connecto');
-							$num = mysqli_fetch_array($result2);
-							$zero = $num[0];
+							$connect = mysqli_connect("localhost", "u212525129_TimSquire", "1164Life!", "u212525129_blog");
+							$author = $_POST['author'];
+							$title = $_POST['title'];
+							$pubdate = $_POST['pubdate'];
+							$cat = $_POST['category'];
+							$picture = $_FILES['picture']['name'];
+							$uploaddir = 'images-folder';
+							$uploadfile = $uploaddir . basename($_FILES['picture']['name']);
+							move_uploaded_file($_FILES['picture']['tmp_name'], $uploadfile);
+							$query3 = "
+										UPDATE `articles` SET `title` = '$title', `content` = '$editor_data', `author` = '$author', `picture` = '$uploadfile', `date` = '$pubdate' WHERE `articles`.`article_id` = '$editpost';
+										";
+							$result3 = mysqli_query($connect, $query3) or die('No connecto bro');
+							$delquery = "DELETE FROM `relations` WHERE `relations`.`article` = $editpost";
+							$delresult = mysqli_query($connect, $delquery) or die('No connecto dawg');
 							foreach($_POST['category'] as $cat){
-							$query2 = "INSERT INTO `relations` (`article`, `category`) VALUES ('$zero','$cat')";
-							$result3 = mysqli_query($conn, $query2) or die('No connecto');
+								$catquery = "INSERT INTO `relations` (`article`, `category`) VALUES ('$editpost','$cat')";
+								$catresult = mysqli_query($connect, $catquery) or die('No connecto');
 							}
 							header('location: index.php');
 						} else {

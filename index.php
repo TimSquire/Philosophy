@@ -130,7 +130,7 @@ session_start();
 						<li class="has-children">
 							<a href="#0" title="">Categories</a>
 							<ul class="sub-menu">
-							<li><a href="category.php?category=1">Sports</a></li>
+							<li><a href="category.php?category=1">Sports!</a></li>
 							<li><a href="category.php?category=2">Business</a></li>
 							<li><a href="category.php?category=3">Finance</a></li>
 							<li><a href="category.php?category=4">Entertainment</a></li>

@@ -32,8 +32,6 @@ if(!ISSET($_SESSION['privs'])){
 							move_uploaded_file($_FILES['picture']['tmp_name'], $uploadfile);
 							$query3 = "INSERT INTO `articles` (`article_id`, `title`, `content`,`date`, `likes`, `picture`, `author`, `show`) VALUES (NULL, '$title', '$editor_data', CURRENT_TIMESTAMP, '0', '$file_name', '$user', 'yes')";
 							$result3 = mysqli_query($connect, $query3) or die('No connecto bro');
-							$delquery = "DELETE FROM `relations` WHERE `relations`.`article` = $editpost";
-							$delresult = mysqli_query($connect, $delquery) or die('No connecto dawg');
 							$articlenum = "SELECT `article_id` FROM `articles`
 										   ORDER BY `article_id` DESC";
 							$result2 = mysqli_query($conn, $articlenum) or die('No connecto');

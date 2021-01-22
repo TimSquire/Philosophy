@@ -16,7 +16,7 @@ if(!ISSET($_SESSION['privs'])){
 		}
 		if(ISSET($_POST['postButton'])){
 			if(!empty($_POST['title'])){
-				if(!empty($_POST['picture'])){
+				if(!empty($_FILES['picture']['name'])){
 					if(!empty($_POST['category'])){
 						$editor_data = $_POST[ 'editor1' ];
 						$title = $_POST['title'];
@@ -30,7 +30,7 @@ if(!ISSET($_SESSION['privs'])){
 							$uploaddir = 'images-folder';
 							$uploadfile = $uploaddir . basename($_FILES['picture']['name']);
 							move_uploaded_file($_FILES['picture']['tmp_name'], $uploadfile);
-							$query3 = "INSERT INTO `articles` (`article_id`, `title`, `content`,`date`, `likes`, `picture`, `author`, `show`) VALUES (NULL, '$title', '$editor_data', CURRENT_TIMESTAMP, '0', '$file_name', '$user', 'yes')";
+							$query3 = "INSERT INTO `articles` (`article_id`, `title`, `content`,`date`, `likes`, `picture`, `author`, `show`) VALUES (NULL, '$title', '$editor_data', CURRENT_TIMESTAMP, '0', '$uploadfile', '$user', 'yes')";
 							$result3 = mysqli_query($connect, $query3) or die('No connecto bro');
 							$articlenum = "SELECT `article_id` FROM `articles`
 										   ORDER BY `article_id` DESC";

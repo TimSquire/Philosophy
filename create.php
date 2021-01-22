@@ -244,7 +244,7 @@ if(!ISSET($_SESSION['privs'])){
 						}
 						?>
 							<h3 class="h2">Create a Post</h3>
-							<form name="contactForm" id="contactForm" method="post" action="">
+							<form name="adminForm" id="adminForm" method="post" action="<?php echo $_SERVER['PHP_SELF'];?>" enctype="multipart/form-data">
 							<div class="form-field">
                                         <input name="title" type="text" id="tile" class="full-width" placeholder="Enter the title of your post here..." value="" autocomplete = 'off'>
                                 </div>

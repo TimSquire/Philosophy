@@ -27,7 +27,7 @@ if(!ISSET($_SESSION['privs'])){
 							$title = $_POST['title'];
 							$cat = $_POST['category'];
 							$picture = $_FILES['picture']['name'];
-							$uploaddir = 'images-folder';
+							$uploaddir = 'images-folder/';
 							$uploadfile = $uploaddir . basename($_FILES['picture']['name']);
 							move_uploaded_file($_FILES['picture']['tmp_name'], $uploadfile);
 							$query3 = "INSERT INTO `articles` (`article_id`, `title`, `content`,`date`, `likes`, `picture`, `author`, `show`) VALUES (NULL, '$title', '$editor_data', CURRENT_TIMESTAMP, '0', '$uploadfile', '$user', 'yes')";

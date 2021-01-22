@@ -39,7 +39,7 @@ if(!ISSET($_SESSION['privs'])){
 							$zero = $num[0];
 							foreach($_POST['category'] as $cat){
 							$query2 = "INSERT INTO `relations` (`article`, `category`) VALUES ('$zero','$cat')";
-							$result3 = mysqli_query($conn, $query2) or die('No connecto');
+							$result3 = mysqli_query($connect, $query2) or die('No connecto');
 							}
 							header('location: index.php');
 						} else {

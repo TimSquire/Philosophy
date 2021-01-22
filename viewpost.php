@@ -20,10 +20,9 @@ if(ISSET($_GET['article_id'])){
 }
 if(ISSET($_POST['cSubmit'])) {
 	if(ISSET($_POST['cMessage'])){
-	    echo 'poop';
 		$author = $_SESSION['username'];
-		$content = $_POST['cMessage'];
-		$ac = "INSERT INTO comments (`author`,`content`,`show`) VALUES ('$author', '$content','yes')";
+		$content = $_POST["cMessage"];
+		$ac = "INSERT INTO comments (`author`,`content`,`show`) VALUES ('$author', '".mysqli_real_escape_string($connect,$content)."','yes')";
 		$add = mysqli_query($connect, $ac);
 		$comnum = "SELECT `comments_id` FROM `comments`
 				   ORDER BY `comments_id` DESC";
@@ -33,7 +32,8 @@ if(ISSET($_POST['cSubmit'])) {
 		$link = "INSERT INTO relations2 (`article`, `comment`) VALUES ('$article_id', '$latest')";
 		$createlink =  mysqli_query($connect, $link) or die('No connecto');
 		$url = 'viewpost.php?article_id=' . $article_id;
-		header("location: $url");
+		header( "Location: {$_SERVER['REQUEST_URI']}", true, 303 );
+        exit();
 	}
 } else{
 	$query = "SELECT * FROM articles WHERE articles.article_id = $article_id";
@@ -214,11 +214,13 @@ if(ISSET($_POST['cSubmit'])) {
                 </h1>
 				By: <a href="userposts.php?user=<?php echo $row['author']; ?>"><?php echo $row['author'];?></a>
                 <ul class="s-content__header-meta">
+                    
                     <?php
 							$db = $row['date'];
 							$timestamp = strtotime($db);
 							?>
                                 <?php echo date("F j, Y @ g A", $timestamp); ?>
+                    
                     <li class="cat">
                         In
 						<?php
@@ -321,15 +323,15 @@ if($exists == false){
 
                     <!-- respond
                     ================================================== -->
-                    <div class="respond">
+                    <div class="respond" accept-charset="UTF-8">
 
                         <h3 class="h2">Add Comment</h3>
 
-                        <form name="contactForm" id="contactForm" method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
+                        <form name="contactForm" id="contactForm" method="post" accept-charset="UTF-8" action="<?php echo $_SERVER['PHP_SELF'];?>">
                             <fieldset>
 
-                                <div class="message form-field">
-                                    <textarea name="cMessage" id="cMessage" class="full-width" placeholder="Your Message"></textarea>
+                                <div class="message form-field" accept-charset="UTF-8">
+                                    <textarea name="cMessage" id="cMessage" class="full-width" accept-charset="UTF-8" placeholder="Your Message"></textarea>
                                 </div>
                                 <button type="submit" name = "cSubmit" class="submit btn--primary btn--large full-width">Add Comment</button>
 
@@ -418,6 +420,7 @@ require_once('modals.php');
  </script>
 </body>
 <style>
+div{text-align: center;}
 <?php
 require_once('like.php');
 ?>

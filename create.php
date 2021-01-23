@@ -24,13 +24,29 @@ if(!ISSET($_SESSION['privs'])){
 						$user = $_SESSION['username'];
 						if(!empty($editor_data) && !empty($title)){
 							$connect = mysqli_connect("localhost", "u212525129_TimSquire", "1164Life!", "u212525129_blog");
+							// SDK initialization
+
+							use ImageKit\ImageKit;
+
+							$imageKit = new ImageKit(
+								"public_qZVn/JImHpBKHdt9c0TubPs17So=",
+								"private_CBY1gdrOjM73drra3OjBoP//Als=",
+								"https://ik.imagekit.io/5y8e1hvsx6a"
+							);
 							$title = $_POST['title'];
 							$cat = $_POST['category'];
 							$picture = $_FILES['picture']['name'];
 							imagejpeg($picture, NULL, 50);
 							$uploaddir = 'images-folder/';
 							$uploadfile = $uploaddir . basename($_FILES['picture']['name']);
-							$new_link = "https://ik.imagekit.io/5y8e1hvsx6a/" . basename($_FILES['picture']['name']);
+							$new_link = $imageKit->url(array(
+								"path" => "/" . basename($_FILES['picture']['name']),
+								"transformation" => array(
+									array(
+										"width" => "320",
+									)
+								)
+							));
 							move_uploaded_file($_FILES['picture']['tmp_name'], $uploadfile);
 							$query3 = "INSERT INTO `articles` (`article_id`, `title`, `content`,`date`, `likes`, `picture`, `author`, `show`) VALUES (NULL, '$title', '$editor_data', CURRENT_TIMESTAMP, '0', '$new_link', '$user', 'yes')";
 							$result3 = mysqli_query($connect, $query3) or die('No connecto bro');

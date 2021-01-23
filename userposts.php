@@ -212,65 +212,67 @@ if(ISSET($_GET['searchSubmit'])){
 				<?php
 				} else {
 				while($row = mysqli_fetch_array($result)){
-						$catq = "
-				SELECT relations.article, relations.category, articles.article_id, category.categoryName
-				FROM articles
-				INNER JOIN relations
-				ON articles.article_id = relations.article
-				INNER JOIN category
-				ON relations.category = category.category_id
-				";
-				$categoryq = mysqli_query($connect, $catq);
-					?>
-                <article class="masonry__brick entry format-standard" data-aos="fade-up">
-                      <form method = "GET" action = "$_SERVER['PHP_SELF']">
-                    <div class="entry__thumb">
-                        <a href="viewpost.php?article_id=<?php echo $row['article_id']; ?>" class="entry__thumb-link">
-                            <img src="<?php echo $row['picture']?>"alt="">
-                        </a>
-                    </div>
-
-                    <div class="entry__text">
-                        <div class="entry__header">
-                            <a href="userposts.php?user=<?php echo $row['author']; ?>"><?php echo $row['author'];?></a>
-                            <div class="entry__date">
-							<?php
-							$db = $row['date'];
-							$timestamp = strtotime($db);
-							?>
-                            <?php echo date("F j, Y @ g A", $timestamp); ?>
+				    if($row['show'] == 'yes'){
+    						$catq = "
+    				SELECT relations.article, relations.category, articles.article_id, category.categoryName
+    				FROM articles
+    				INNER JOIN relations
+    				ON articles.article_id = relations.article
+    				INNER JOIN category
+    				ON relations.category = category.category_id
+    				";
+    				$categoryq = mysqli_query($connect, $catq);
+    					?>
+                    <article class="masonry__brick entry format-standard" data-aos="fade-up">
+                          <form method = "GET" action = "$_SERVER['PHP_SELF']">
+                        <div class="entry__thumb">
+                            <a href="viewpost.php?article_id=<?php echo $row['article_id']; ?>" class="entry__thumb-link">
+                                <img src="<?php echo $row['picture']?>"alt="">
+                            </a>
+                        </div>
+    
+                        <div class="entry__text">
+                            <div class="entry__header">
+                                <a href="userposts.php?user=<?php echo $row['author']; ?>"><?php echo $row['author'];?></a>
+                                <div class="entry__date">
+    							<?php
+    							$db = $row['date'];
+    							$timestamp = strtotime($db);
+    							?>
+                                <?php echo date("F j, Y @ g A", $timestamp); ?>
+                                </div>
+                                <h1 class="entry__title"><a href="viewpost.php?article_id=<?php echo $row['article_id']; ?>"><?php echo $row['title'] ?></a></h1>
+    
                             </div>
-                            <h1 class="entry__title"><a href="viewpost.php?article_id=<?php echo $row['article_id']; ?>"><?php echo $row['title'] ?></a></h1>
-
+                            <div class="entry__excerpt">
+                                <p>
+                                    <?php
+    								if(strlen($row['content'])  > 90){
+    								$con = substr($row['content'],0,90);
+    								echo $con . '...'?> <a href="viewpost.php?article_id=<?php echo $row['article_id']; ?>">Read More</a><?php ;
+    								} else {
+    									echo $row['content'];
+    								}
+    								?>
+                                </p>
+                            </div>
+                            <div class="entry__meta">
+                                <span class="entry__meta-links">
+                                    <?php
+    								while($row2 = mysqli_fetch_array($categoryq)){
+    									if($row['article_id'] == $row2['article']){
+    									?><a href="category.php?category=<?php echo $row2['category'] ?>"><?php echo $row2['categoryName'];?></a>
+    									<?php
+    									}
+    								}
+    								?>
+                                </span>
+                            </div>
                         </div>
-                        <div class="entry__excerpt">
-                            <p>
-                                <?php
-								if(strlen($row['content'])  > 90){
-								$con = substr($row['content'],0,90);
-								echo $con . '...'?> <a href="viewpost.php?article_id=<?php echo $row['article_id']; ?>">Read More</a><?php ;
-								} else {
-									echo $row['content'];
-								}
-								?>
-                            </p>
-                        </div>
-                        <div class="entry__meta">
-                            <span class="entry__meta-links">
-                                <?php
-								while($row2 = mysqli_fetch_array($categoryq)){
-									if($row['article_id'] == $row2['article']){
-									?><a href="category.php?category=<?php echo $row2['category'] ?>"><?php echo $row2['categoryName'];?></a>
-									<?php
-									}
-								}
-								?>
-                            </span>
-                        </div>
-                    </div>
-                </article> <!-- end article -->
-				<?php
-					}
+                    </article> <!-- end article -->
+    				<?php
+    					}
+				    }
 				}
 				?>
             </div> <!-- end masonry -->

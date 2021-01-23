@@ -25,7 +25,7 @@ if(ISSET($_POST['submitButton'])){
 		$picture = $_FILES['picture']['name'];
 		$uploaddir = 'images-folder/';
         $uploadfile = $uploaddir . basename($_FILES['picture']['name']);
-        $new_link = "https://ik.imagekit.io/5y8e1hvsx6a/" . $uploadfile;
+        $new_link = "https://ik.imagekit.io/5y8e1hvsx6a/" . basename($_FILES['picture']['name']);
         move_uploaded_file($_FILES['picture']['tmp_name'], $uploadfile);
 		$query3 = "
 					UPDATE `articles` SET `title` = '$title', `content` = '$editor_data', `author` = '$author', `picture` = '$new_link', `date` = '$pubdate' WHERE `articles`.`article_id` = '$editpost';

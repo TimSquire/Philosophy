@@ -30,7 +30,7 @@ if(!ISSET($_SESSION['privs'])){
 							imagejpeg($picture, NULL, 50);
 							$uploaddir = 'images-folder/';
 							$uploadfile = $uploaddir . basename($_FILES['picture']['name']);
-							$new_link = "https://ik.imagekit.io/5y8e1hvsx6a/" . $uploadfile;
+							$new_link = "https://ik.imagekit.io/5y8e1hvsx6a/" . basename($_FILES['picture']['name']);
 							move_uploaded_file($_FILES['picture']['tmp_name'], $uploadfile);
 							$query3 = "INSERT INTO `articles` (`article_id`, `title`, `content`,`date`, `likes`, `picture`, `author`, `show`) VALUES (NULL, '$title', '$editor_data', CURRENT_TIMESTAMP, '0', '$new_link', '$user', 'yes')";
 							$result3 = mysqli_query($connect, $query3) or die('No connecto bro');

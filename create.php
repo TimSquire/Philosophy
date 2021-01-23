@@ -26,7 +26,7 @@ if(!ISSET($_SESSION['privs'])){
 							$connect = mysqli_connect("localhost", "u212525129_TimSquire", "1164Life!", "u212525129_blog");
 							// SDK initialization
 
-							use ImageKit\ImageKit;
+							use imagekit-php-master/src/ImageKit/ImageKit.php;
 
 							$imageKit = new ImageKit(
 								"public_qZVn/JImHpBKHdt9c0TubPs17So=",
